@@ -2,7 +2,6 @@ sudo: required
 
 language: python
 python:
-
 - '3.5'
 install: pip3 install -r requirements.txt
 script: nosetests
@@ -10,6 +9,5 @@ notifications:
   slack:
     secure: PWjQ5Jt6JBtOtxS+W2KeFewPGun7mfJpkrTae+NTDrEtOhHZ4PJdTullOj+dC3g5Elzs9FpsXT30bOLvp03tAbpjuWYZsxbFxB/+UdkbtkoSX8oLzSr85KOEl1xpC6U6vfGTM9qatioFXndODKmlf3NlSTejoXeiUnO+RTfneZYG7T8E3N3bnH2Sfncmmy1stZp48GmEGdzd8XmCSV6DEHGMkQgg0yq+STu6F/800tXircPlxlF6fKvDx2tvDCjdi2Zj3NZo4tcLr8XQHyjQbYP9khSugH6qD2cfzNtgFfD300Go3Tqtegyxl0d87RMNUjotlvHDBYLq+d6NT+P1mxpLD/K2letKpj2Y5qIaQJ3EjBcVhQF1jNbfnQYP0Ls1JRbHBnimKUwEyiXTaBX91g9txQ6iq/JQKEXWjSh6MnhVhWTC2DYZtM/S1mw8W6g0SZYuVKYSGgE8PtS6G53o+F+p25NIDzSZ7nrZj2F8k+L5N9+SQ7g4oNooS9S+mp5HfQPyIBJBVopCBCdfwiogmu5+WfRpUXXCpu4CtoR1RgCXoDoN47N8w4YEZezyVyMxCWxXT7w//DOJ1J84txLqZPZoceAoq1/MLour7QAoxpDkL/8FQ8JaSJ4OZn9TLHyf0J7IZAvx0XRDSFmN3Od26OtLVeQF2UhXr6RLIMT8P3o=
 services:
-  - docker
 
 before_install:
