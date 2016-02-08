@@ -1,7 +1,7 @@
 FROM fedora:latest
 
 # Install Python pip and Setuptools
-RUN dnf install -y python3-pip python3-setuptools
+RUN dnf install -y python3-pip python3-setuptools wget
 
 # Add and install Python modules
 ADD requirements.txt /src/requirements.txt
