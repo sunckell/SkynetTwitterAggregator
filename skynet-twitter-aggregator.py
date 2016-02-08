@@ -38,9 +38,6 @@ class SkynetStreamPoster(StreamListener):
 
         return True
 
-    def on_error(self, status):
-        print(status)
-
 
 if __name__ == '__main__':
 
@@ -55,5 +52,5 @@ if __name__ == '__main__':
     stream = Stream(auth, p)
 
     # --- This line filter Twitter Streams to capture data by the keywords.
-    stream.filter(track=['NASDAQ:TROW', 'NASDAQ:MSFT', 'TROW', 'AAPL'])
+    stream.filter(track=['Hillary Clinton', 'Bernie Sanders', 'Rocky De La Fuente','Jeb Bush', 'Ben Carson', 'Chris Christie', 'Ted Cruz', 'Carly Fiorina', 'Donald Trump', 'Marco Rubio'])
 
