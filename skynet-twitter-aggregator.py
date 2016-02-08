@@ -1,5 +1,5 @@
 import os
-import json
+import requests
 from settings import EnvironmentSettings
 
 from tweepy.streaming import StreamListener
@@ -9,6 +9,9 @@ from tweepy import Stream
 
 root_folder_path = os.path.dirname(os.path.abspath(__file__))
 env_settings = EnvironmentSettings(root_folder_path)
+
+
+skynet_service = "http://52.90.10.34"
 
 
 # --- this is a basic listener that just prints received tweets to stdout.
