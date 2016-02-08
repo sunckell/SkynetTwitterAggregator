@@ -11,4 +11,4 @@ RUN cd /src; pip3 install -r requirements.txt
 ADD . /src
 
 # Run
-CMD ["python", "/src/skynet-twitter-aggregator.py"]
+CMD ["/bin/bash", "/src/docker_start.sh"]

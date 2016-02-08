@@ -29,8 +29,13 @@ class StdOutListener(StreamListener):
 class SkynetStreamPoster(StreamListener):
 
     def on_data(self, data):
-        requests.post(skynet_service, data=json.dumps(data))
-        print("Posted data")
+        r = requests.post(skynet_service, data=json.dumps(data))
+        if r.status_code == requests.codes.ok:
+            print("Posted data")
+        else:
+            print("Could not post data to:" + skynet_service )
+            print(r.status_code)
+
         return True
 
     def on_error(self, status):
