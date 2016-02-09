@@ -68,6 +68,7 @@ if __name__ == '__main__':
 
             # --- This line filter Twitter Streams to capture data by the keywords.
             stream.filter(languages=["en"], stall_warnings=True, track=['Hillary Clinton', 'Donald Trump', 'Ben Carson'])
+
         except (IncompleteRead, ProtocolError):
             sys.stdout.write("Caught Incomplete read in the Twitter Stream..\n")
             pass

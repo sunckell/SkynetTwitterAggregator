@@ -1,3 +1,4 @@
 http://skynet-test-socket.elasticbeanstalk.com
 http://skynet.elasticbeanstalk.com/app/index.html#/
 http://cyberdyneinterface.elasticbeanstalk.com/
+http://skynet-sentiment.elasticbeanstalk.com/app/index.html#/
