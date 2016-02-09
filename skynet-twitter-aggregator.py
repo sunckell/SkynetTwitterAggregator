@@ -53,5 +53,4 @@ if __name__ == '__main__':
     stream = Stream(auth, p)
 
     # --- This line filter Twitter Streams to capture data by the keywords.
-    stream.filter(track=['Hillary Clinton', 'Bernie Sanders', 'Jeb Bush', 'Donald Trump',
-                         'Ben Carson', 'Chris Christie', 'Ted Cruz', 'Carly Fiorina'])
+    stream.filter(track=['Hillary Clinton', 'Donald Trump', 'Ben Carson'])
