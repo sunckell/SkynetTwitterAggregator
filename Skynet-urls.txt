@@ -1,1 +1,2 @@
 http://skynet-test-socket.elasticbeanstalk.com
+http://skynet.elasticbeanstalk.com/app/index.html#/

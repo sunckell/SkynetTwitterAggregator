@@ -26,6 +26,7 @@ class StdOutListener(StreamListener):
         print(status)
 
 
+# --- posts to the Skynet service api
 class SkynetStreamPoster(StreamListener):
 
     def on_data(self, data):
@@ -52,7 +53,5 @@ if __name__ == '__main__':
     stream = Stream(auth, p)
 
     # --- This line filter Twitter Streams to capture data by the keywords.
-    stream.filter(track=['Hillary Clinton', 'Bernie Sanders', 'Rocky De La Fuente', 'Jeb Bush',
-                         'Ben Carson', 'Chris Christie', 'Ted Cruz', 'Carly Fiorina', 'Donald Trump',
-                         'Marco Rubio'])
-
+    stream.filter(track=['Hillary Clinton', 'Bernie Sanders', 'Jeb Bush', 'Donald Trump',
+                         'Ben Carson', 'Chris Christie', 'Ted Cruz', 'Carly Fiorina'])
