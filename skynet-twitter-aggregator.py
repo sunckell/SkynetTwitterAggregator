@@ -37,11 +37,11 @@ class SkynetStreamPoster(StreamListener):
         r = requests.post(skynet_service, data=json.dumps(data))
         if r.status_code == requests.codes.ok:
             now = datetime.datetime.now()
-            print(str(now) + " posted data: " + str(json.loads(data)['text'].encode('UTF-8', 'ignore')))
+            sys.stdout.write(str(now) + " posted data: " + json.loads(data)['text'] + "\n")
         else:
             now = datetime.datetime.now()
-            print(str(now) + " Could not post data to:" + skynet_service)
-            print(str(now) + " status code: " + r.status_code)
+            sys.stdout.write(str(now) + " Could not post data to:" + skynet_service + "\n")
+            sys.stdout.write(str(now) + " status code: " + r.status_code + "\n")
 
         return True
 
@@ -57,7 +57,7 @@ if __name__ == '__main__':
 
     while True:
         try:
-            print("Starting Twitter Aggregator..")
+            sys.stdout.write("Starting Twitter Aggregator..\n")
             # --- This handles Twitter authentication and the connection to Twitter Streaming API
             # --- l = StdOutListener()
             # --- stream = Stream(auth, l)
@@ -67,9 +67,9 @@ if __name__ == '__main__':
             # --- This line filter Twitter Streams to capture data by the keywords.
             stream.filter(languages=["en"], stall_warnings=True, track=['Hillary Clinton', 'Donald Trump', 'Ben Carson'])
         except (IncompleteRead, ProtocolError):
-            print("Caught Incomplete read in the Twitter Stream..")
+            sys.stdout.write("Caught Incomplete read in the Twitter Stream..\n")
             pass
         except (KeyboardInterrupt, SystemExit):
-            print("Stopping Twitter Aggregator..")
+            sys.stdout.write("Stopping Twitter Aggregator..\n")
             stream.disconnect()
             sys.exit(0)
