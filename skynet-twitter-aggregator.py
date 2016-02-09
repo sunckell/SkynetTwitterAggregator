@@ -2,6 +2,7 @@
 import os
 import sys
 import json
+import time
 import datetime
 import requests
 from http.client import IncompleteRead
@@ -37,13 +38,17 @@ class SkynetStreamPoster(StreamListener):
     def on_data(self, data):
         r = requests.post(skynet_service, data=json.dumps(data))
         if r.status_code == requests.codes.ok:
-            # now = datetime.datetime.now()
+            now = datetime.datetime.now()
             # sys.stdout.write(str(now) + " posted data: " + json.loads(data)['text'] + "\n")
-            sys.stdout.write(" posted data: \n")
+            sys.stdout.write(str(now) + " posted data. \n")
         else:
             now = datetime.datetime.now()
             sys.stdout.write(str(now) + " Could not post data to:" + skynet_service + "\n")
-            sys.stdout.write(str(now) + " status code: " + r.status_code + "\n")
+            sys.stdout.write(str(now) + " status code: " + str(r.status_code) + "\n")
+            sys.stdout.write(str(now) + " Sleeping for 3 minutes and trying again. \n")
+
+            time.sleep(360)
+            return True
 
         return True
 
