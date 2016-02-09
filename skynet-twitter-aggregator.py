@@ -3,6 +3,7 @@ import sys
 import json
 import datetime
 import requests
+from http.client import IncompleteRead
 from settings import EnvironmentSettings
 
 from tweepy.streaming import StreamListener
@@ -49,23 +50,27 @@ class SkynetStreamPoster(StreamListener):
 if __name__ == '__main__':
     # --- I was dying on a weird protocolError.  Which was just a hiccup, the script could keep
     # --- rolling after the exception..  So I am trying a while True statement to keep it going.
+
+    p = SkynetStreamPoster()
+
+    auth = OAuthHandler(os.environ['CONSUMER_KEY'], os.environ['CONSUMER_SECRET'])
+    auth.set_access_token(os.environ['ACCESS_TOKEN'], os.environ['ACCESS_TOKEN_SECRET'])
+
     while True:
         try:
             print("Starting Twitter Aggregator..")
             # --- This handles Twitter authentication and the connection to Twitter Streaming API
             # --- l = StdOutListener()
-            p = SkynetStreamPoster()
-
-            auth = OAuthHandler(os.environ['CONSUMER_KEY'], os.environ['CONSUMER_SECRET'])
-            auth.set_access_token(os.environ['ACCESS_TOKEN'], os.environ['ACCESS_TOKEN_SECRET'])
-
             # --- stream = Stream(auth, l)
+
             stream = Stream(auth, p)
 
             # --- This line filter Twitter Streams to capture data by the keywords.
-            stream.filter(track=['Hillary Clinton', 'Donald Trump', 'Ben Carson'])
-        except requests.packages.urllib3.exceptions.ProtocolError:
+            stream.filter(languages=["en"], track=['Hillary Clinton', 'Donald Trump', 'Ben Carson'])
+        except IncompleteRead:
+            print("Caught Incomplete read in the Twitter Stream..")
             continue
         except (KeyboardInterrupt, SystemExit):
             print("Stopping Twitter Aggregator..")
+            stream.disconnect()
             sys.exit(0)
