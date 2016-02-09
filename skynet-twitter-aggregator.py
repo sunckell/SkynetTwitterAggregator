@@ -49,8 +49,9 @@ class SkynetStreamPoster(StreamListener):
 
 
 if __name__ == '__main__':
-    # --- I was dying on a weird protocolError.  Which was just a hiccup, the script could keep
-    # --- rolling after the exception..  So I am trying a while True statement to keep it going.
+    # --- I was dying on a weird protocolError.  Which was just a hiccup,
+    # --- the script could keep rolling after the exception..
+    # --- So I am trying a while True statement to keep it going.
 
     p = SkynetStreamPoster()
 
@@ -67,7 +68,8 @@ if __name__ == '__main__':
             stream = Stream(auth, p)
 
             # --- This line filter Twitter Streams to capture data by the keywords.
-            stream.filter(languages=["en"], stall_warnings=True, track=['Hillary Clinton', 'Donald Trump', 'Ben Carson'])
+            stream.filter(languages=["en"], stall_warnings=True,
+                          track=['Hillary Clinton', 'Donald Trump', 'Ben Carson'])
 
         except (IncompleteRead, ProtocolError):
             sys.stdout.write("Caught Incomplete read in the Twitter Stream..\n")
