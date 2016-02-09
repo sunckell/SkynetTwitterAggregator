@@ -5,11 +5,8 @@ env:
 language: python
 python:
 - '3.5'
-install:
-  - pip install -r requirements.txt
-  - pip install coveralls
-script:
-  coverage run --source=settings.py skynet-twitter-aggregator.py
+install: pip install -r requirements.txt
+script: nosetests
 notifications:
   slack:
     rooms:
@@ -17,7 +14,6 @@ notifications:
 services:
   - docker
 after_success:
-  coveralls
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - export REPO=sunckell/skynettwitteraggregator
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
