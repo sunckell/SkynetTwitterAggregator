@@ -33,7 +33,7 @@ class SkynetStreamPoster(StreamListener):
         if r.status_code == requests.codes.ok:
             print("Posted data")
         else:
-            print("Could not post data to:" + skynet_service )
+            print("Could not post data to:" + skynet_service)
             print(r.status_code)
 
         return True
@@ -52,5 +52,7 @@ if __name__ == '__main__':
     stream = Stream(auth, p)
 
     # --- This line filter Twitter Streams to capture data by the keywords.
-    stream.filter(track=['Hillary Clinton', 'Bernie Sanders', 'Rocky De La Fuente','Jeb Bush', 'Ben Carson', 'Chris Christie', 'Ted Cruz', 'Carly Fiorina', 'Donald Trump', 'Marco Rubio'])
+    stream.filter(track=['Hillary Clinton', 'Bernie Sanders', 'Rocky De La Fuente', 'Jeb Bush',
+                         'Ben Carson', 'Chris Christie', 'Ted Cruz', 'Carly Fiorina', 'Donald Trump',
+                         'Marco Rubio'])
 
