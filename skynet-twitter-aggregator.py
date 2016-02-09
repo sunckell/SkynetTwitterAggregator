@@ -4,6 +4,7 @@ import json
 import datetime
 import requests
 from http.client import IncompleteRead
+from requests.packages.urllib3.exceptions import ProtocolError
 from settings import EnvironmentSettings
 
 from tweepy.streaming import StreamListener
@@ -34,8 +35,6 @@ class SkynetStreamPoster(StreamListener):
 
     def on_data(self, data):
         r = requests.post(skynet_service, data=json.dumps(data))
-        # j = json.loads(data)['text']
-        # r = requests.post(skynet_service, data=json.dumps(j))
         if r.status_code == requests.codes.ok:
             now = datetime.datetime.now()
             print(str(now) + " posted data: " + json.loads(data)['text'])
@@ -67,7 +66,7 @@ if __name__ == '__main__':
 
             # --- This line filter Twitter Streams to capture data by the keywords.
             stream.filter(languages=["en"], stall_warnings=True, track=['Hillary Clinton', 'Donald Trump', 'Ben Carson'])
-        except IncompleteRead:
+        except (IncompleteRead, ProtocolError):
             print("Caught Incomplete read in the Twitter Stream..")
             pass
         except (KeyboardInterrupt, SystemExit):
