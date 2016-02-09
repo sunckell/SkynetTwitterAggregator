@@ -47,20 +47,25 @@ class SkynetStreamPoster(StreamListener):
 
 
 if __name__ == '__main__':
-    try:
-        print("Starting Twitter Aggregator..")
-        # --- This handles Twitter authentication and the connection to Twitter Streaming API
-        # --- l = StdOutListener()
-        p = SkynetStreamPoster()
+    # --- I was dying on a weird protocolError.  Which was just a hiccup, the script could keep
+    # --- rolling after the exception..  So I am trying a while True statement to keep it going.
+    while True:
+        try:
+            print("Starting Twitter Aggregator..")
+            # --- This handles Twitter authentication and the connection to Twitter Streaming API
+            # --- l = StdOutListener()
+            p = SkynetStreamPoster()
 
-        auth = OAuthHandler(os.environ['CONSUMER_KEY'], os.environ['CONSUMER_SECRET'])
-        auth.set_access_token(os.environ['ACCESS_TOKEN'], os.environ['ACCESS_TOKEN_SECRET'])
+            auth = OAuthHandler(os.environ['CONSUMER_KEY'], os.environ['CONSUMER_SECRET'])
+            auth.set_access_token(os.environ['ACCESS_TOKEN'], os.environ['ACCESS_TOKEN_SECRET'])
 
-        # --- stream = Stream(auth, l)
-        stream = Stream(auth, p)
+            # --- stream = Stream(auth, l)
+            stream = Stream(auth, p)
 
-        # --- This line filter Twitter Streams to capture data by the keywords.
-        stream.filter(track=['Hillary Clinton', 'Donald Trump', 'Ben Carson'])
-    except (KeyboardInterrupt, SystemExit):
-        print("Stopping Twitter Aggregator..")
-        sys.exit(0)
+            # --- This line filter Twitter Streams to capture data by the keywords.
+            stream.filter(track=['Hillary Clinton', 'Donald Trump', 'Ben Carson'])
+        except requests.packages.urllib3.exceptions.ProtocolError:
+            continue
+        except (KeyboardInterrupt, SystemExit):
+            print("Stopping Twitter Aggregator..")
+            sys.exit(0)
