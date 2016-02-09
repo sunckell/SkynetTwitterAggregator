@@ -69,7 +69,7 @@ if __name__ == '__main__':
             stream.filter(languages=["en"], track=['Hillary Clinton', 'Donald Trump', 'Ben Carson'])
         except IncompleteRead:
             print("Caught Incomplete read in the Twitter Stream..")
-            continue
+            pass
         except (KeyboardInterrupt, SystemExit):
             print("Stopping Twitter Aggregator..")
             stream.disconnect()
