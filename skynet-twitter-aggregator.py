@@ -37,11 +37,11 @@ class SkynetStreamPoster(StreamListener):
         r = requests.post(skynet_service, data=json.dumps(data))
         if r.status_code == requests.codes.ok:
             now = datetime.datetime.now()
-            print(str(now) + " posted data: " + json.loads(data)['text'])
+            print(str(now) + " posted data: " + str(json.loads(data)['text'].encode('UTF-8', 'ignore')))
         else:
             now = datetime.datetime.now()
             print(str(now) + " Could not post data to:" + skynet_service)
-            print(str(now) + " status code: " +r.status_code)
+            print(str(now) + " status code: " + r.status_code)
 
         return True
 
