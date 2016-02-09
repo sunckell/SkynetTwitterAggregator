@@ -1,5 +1,7 @@
 import os
+import sys
 import json
+import datetime
 import requests
 from settings import EnvironmentSettings
 
@@ -30,27 +32,35 @@ class StdOutListener(StreamListener):
 class SkynetStreamPoster(StreamListener):
 
     def on_data(self, data):
-        r = requests.post(skynet_service, data=json.dumps(data))
+        # --- r = requests.post(skynet_service, data=json.dumps(data))
+        j = json.loads(data)['text']
+        r = requests.post(skynet_service, data=json.dumps(j))
         if r.status_code == requests.codes.ok:
-            print("Posted data")
+            now = datetime.datetime.now()
+            print(str(now) + " posted data: " + json.loads(data)['text'])
         else:
-            print("Could not post data to:" + skynet_service)
-            print(r.status_code)
+            now = datetime.datetime.now()
+            print(str(now) + " Could not post data to:" + skynet_service)
+            print(str(now) + " status code: " +r.status_code)
 
         return True
 
 
 if __name__ == '__main__':
+    try:
+        print("Starting Twitter Aggregator..")
+        # --- This handles Twitter authentication and the connection to Twitter Streaming API
+        # --- l = StdOutListener()
+        p = SkynetStreamPoster()
 
-    # --- This handles Twitter authentication and the connection to Twitter Streaming API
-    # --- l = StdOutListener()
-    p = SkynetStreamPoster()
+        auth = OAuthHandler(os.environ['CONSUMER_KEY'], os.environ['CONSUMER_SECRET'])
+        auth.set_access_token(os.environ['ACCESS_TOKEN'], os.environ['ACCESS_TOKEN_SECRET'])
 
-    auth = OAuthHandler(os.environ['CONSUMER_KEY'], os.environ['CONSUMER_SECRET'])
-    auth.set_access_token(os.environ['ACCESS_TOKEN'], os.environ['ACCESS_TOKEN_SECRET'])
+        # --- stream = Stream(auth, l)
+        stream = Stream(auth, p)
 
-    # --- stream = Stream(auth, l)
-    stream = Stream(auth, p)
-
-    # --- This line filter Twitter Streams to capture data by the keywords.
-    stream.filter(track=['Hillary Clinton', 'Donald Trump', 'Ben Carson'])
+        # --- This line filter Twitter Streams to capture data by the keywords.
+        stream.filter(track=['Hillary Clinton', 'Donald Trump', 'Ben Carson'])
+    except (KeyboardInterrupt, SystemExit):
+        print("Stopping Twitter Aggregator..")
+        sys.exit(0)
